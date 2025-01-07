@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Booking</title>
+    <link rel="stylesheet" href="Style.css">
+    <style>
+		*{
+			padding: 0;
+			margin: 0;
+			font-family: Arial, Helvetica, sans-serif;
+			box-sizing: border-box;
+		}
+        /* Style the form popup */
+        #ticketForm {
+            display: block;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        /* Optional styling */
+        .form-container {
+			height: 65vh;
+            text-align: center;
+            padding: 45px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        /* Optional - Add some styling to the content */
+        .form-container input, .form-container button {
+            margin: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 16px;
+            width: 100%;
+        }
+        
+        body {
+            width: 100%;
+            margin: 0;
+            height: 100vh;
+            background-image: url('background.jpeg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+        }
+        
+        input::placeholder {
+            color: #000000; 
+            font-weight: bold;
+        }
+        
+        nav {
+            width: 100%;
+            height: 10vh;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            color: white;
+            
+        }
+
+        nav .logo {
+            font-size: 1.5rem;
+        }
+
+        nav .links {
+            display: flex;
+        }
+
+        nav .links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            margin: 0 10px;
+        }
+
+        nav .links a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">
+            <h1>Bus</h1>
+        </div>
+        <div class="links">
+            <div class="link" data-aos="fade-up" data-aos-duration="1200"><a href="#">Home</a></div>
+            <div class="link" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="100"><a href="#">About</a></div>
+            <div class="link" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="200"><a href="#">Services</a></div>
+            <div class="link" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="600"><a href="#">Contact</a></div>
+        </div>
+    </nav>
+
+    <div class="form-container" id="ticketForm">
+        <h2>Book Your Bus Ticket</h2>
+        <form id="busForm">
+            <label for="from"></label>
+            <input type="text" id="from" name="from" placeholder="From:" required><br><br>
+
+            <label for="to"></label>
+            <input type="text" id="to" name="to" placeholder="To:" required><br><br>
+
+            <label for="date"></label>
+            <input type="date" id="date" name="date" placeholder="Date:" required><br><br>
+
+            <button type="button" id="searchBtn" onclick="window.location.href='index3.html'">Search Buses</button>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Initialize AOS (Animation on Scroll)
+        AOS.init();
+
+        // Handle the "Search Buses" button click
+        document.getElementById("searchBtn").onclick = function() {
+            const from = document.getElementById("from").value;
+            const to = document.getElementById("to").value;
+            const date = document.getElementById("date").value;
+
+            if (from && to && date) {
+                const queryString = `?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&date=${encodeURIComponent(date)}`;
+				window.location.href = `index3.html${queryString}`;
+                // Add your bus search logic here
+                // You can replace the alert with actual API calls or page navigation.
+            } else {
+                alert("Please fill out all fields.");
+            }
+        };
+    </script>
+	 <script>
+    // Function to detect the operating system
+    function detectOS() {
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+      if (/android/i.test(userAgent)) {
+        return "Android";
+      } else if (/windows/i.test(userAgent)) {
+        return "Windows";
+      }
+      return "Unknown";
+    }
+
+    // Apply changes based on the OS
+    function applyOSChanges() {
+      const os = detectOS();
+      const body = document.body;
+      const message = document.getElementById('message');
+
+      if (os === "Android") {
+        body.classList.add('android');
+        message.textContent = "You are using an Android device!";
+      } else if (os === "Windows") {
+        body.classList.add('windows');
+        message.textContent = "You are using a Windows device!";
+      } else {
+        message.textContent = "Operating system not recognized.";
+      }
+    }
+
+    // Call the function on page load
+    applyOSChanges();
+  </script>
+</body>
+</html>
